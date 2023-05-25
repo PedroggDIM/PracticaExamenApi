@@ -4,6 +4,7 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import es.mdef.dam.entidades.Resolucion;
+import es.mdef.dam.entidades.UsuarioImpl;
 import es.mdef.dam.entidades.Recurso.Tipo;
 
 @Relation(itemRelation = "recurso")
@@ -14,6 +15,7 @@ public class RecursoModel extends RepresentationModel<RecursoModel>{
 	private int duracion;	
 	private Resolucion resolucion;
     private Tipo tipo;
+    private UsuarioImpl usuario;
     
     //getter setter
 	public String getFichero() {
@@ -46,7 +48,11 @@ public class RecursoModel extends RepresentationModel<RecursoModel>{
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
-    
-    
+	public UsuarioImpl getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(UsuarioImpl usuario) {
+		this.usuario = usuario;
+	}   
 	
 }

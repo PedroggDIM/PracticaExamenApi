@@ -20,6 +20,7 @@ public class RecursoAssembler implements RepresentationModelAssembler<Recurso, R
 		//campos comunes (los del padre)
 		model.setFichero(entity.getFichero());
 		model.setTamanio(entity.getTamanio());
+		model.setUsuario(entity.getUsuario());
 		
 		if(entity.getTipo() == Tipo.video) {
 			Video video = (Video) entity;
@@ -36,7 +37,8 @@ public class RecursoAssembler implements RepresentationModelAssembler<Recurso, R
 			model.setTipo(Tipo.audio);
 		}			
 		model.add(
-				linkTo(methodOn(RecursoController.class).one(entity.getId())).withSelfRel()						
+				linkTo(methodOn(RecursoController.class).one(entity.getId())).withSelfRel()
+			//	linkTo(methodOn(UsuarioController.class).one(entity.getId())).withRel("usuario")
 				 );
 		return model;
 	}
@@ -60,7 +62,8 @@ public class RecursoAssembler implements RepresentationModelAssembler<Recurso, R
 		}
 		// campos comunes.
 		recurso.setFichero(model.getFichero());
-		recurso.setTamanio(model.getTamanio());			
+		recurso.setTamanio(model.getTamanio());	
+		recurso.setUsuario(model.getUsuario());
 		return recurso;
 	}
 }

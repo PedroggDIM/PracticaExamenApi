@@ -18,9 +18,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "RECURSOS")
 
-// @Inheritance(strategy = InheritanceType.SINGLE_TABLE) 
-// @DiscriminatorColumn(name="tipo_recurso", discriminatorType = DiscriminatorType.CHAR)
-// @DiscriminatorValue("null")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) 
+@DiscriminatorColumn(name="categoria", discriminatorType = DiscriminatorType.CHAR)
+@DiscriminatorValue("null")
 public class Recurso {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -34,10 +34,10 @@ public class Recurso {
 		imagen,
 		video
 	}
-//Un Usuario puede tener muchos Recursos
-	//	@ManyToOne(fetch = FetchType.LAZY)
-	//	@JoinColumn(name = "idUsuario")
-//	private Usuario usuario;
+    //Un Usuario puede tener muchos Recursos
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idUsuario", nullable = false)
+	private UsuarioImpl usuario;
 	
 	
 	// getter y setter
@@ -65,6 +65,15 @@ public class Recurso {
 	public void setTamanio(int tamanio) {
 		this.tamanio = tamanio;
 	}
+	 public UsuarioImpl getUsuario() {
+	        return usuario;
+	    }
+
+	    public void setUsuario(UsuarioImpl usuario) {
+	        this.usuario = usuario;
+	    }
+	
+	
 	
 
 }
