@@ -11,7 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-public class Usuario {
+public class UsuarioImpl {
+	//es.mdef.dam.support.Usuario
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonIgnore
