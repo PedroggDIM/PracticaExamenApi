@@ -43,43 +43,5 @@ public class UsuarioImpl extends es.mdef.dam.support.Usuario{
 	public void setRecursos(List<Recurso> recursos) {
 		this.recursos = recursos;
 	}
-
-	@Override
-	public String getContrasenia() {
-		// TODO Auto-generated method stub
-		return super.getContrasenia();
-	}
-
-	@Override
-	public String getNombreUsuario() {
-		// TODO Auto-generated method stub
-		return super.getNombreUsuario();
-	}
-
-	@Override
-	public Role getRole() {
-		// TODO Auto-generated method stub
-		return super.getRole();
-	}
-
-	@Override
-	public void setContrasenia(String contrasenia) {
-		// TODO Auto-generated method stub
-		super.setContrasenia(contrasenia);
-	}
-
-	@Override
-	public void setNombreUsuario(String nombreUsuario) {
-		// TODO Auto-generated method stub
-		super.setNombreUsuario(nombreUsuario);
-	}
-
-	@Override
-	public void setRole(Role role) {
-		// TODO Auto-generated method stub
-		super.setRole(role);
-	}
-	
-	
 	
 }

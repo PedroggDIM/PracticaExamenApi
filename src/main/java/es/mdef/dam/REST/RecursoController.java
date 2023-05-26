@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.mdef.dam.DamApplication;
+import es.mdef.dam.entidades.Audio;
+import es.mdef.dam.entidades.Imagen;
 import es.mdef.dam.entidades.Recurso;
+import es.mdef.dam.entidades.UsuarioImpl;
+import es.mdef.dam.entidades.Video;
+import es.mdef.dam.entidades.Recurso.Tipo;
 import es.mdef.dam.repositorios.RecursoRepositorio;
 
 @RestController
@@ -19,11 +24,13 @@ import es.mdef.dam.repositorios.RecursoRepositorio;
 public class RecursoController {
 	private final RecursoRepositorio repositorio;
 	private final RecursoAssembler assembler;
+	private final UsuarioAssembler usuarioAssembler;
 	private final Logger log;
 
-	RecursoController(RecursoRepositorio repositorio, RecursoAssembler assembler) {
+	RecursoController(RecursoRepositorio repositorio, RecursoAssembler assembler, UsuarioAssembler usuarioAssembler) {
 		this.repositorio = repositorio;
 		this.assembler = assembler;
+		this.usuarioAssembler = usuarioAssembler;
 		log = DamApplication.log;
 	}
 
@@ -39,13 +46,14 @@ public class RecursoController {
 		return assembler.toCollectionModel(repositorio.findAll());
 	}
 
-	// Metodo para recuperara todos los recursos que tiene un usuario.
-//	@GetMapping("{id}/usuarios")
-//	public CollectionModel<UsuarioModel> recursosDeUsuario(@PathVariable Long id) {
-//		Usuario usuario = repositorio.findById(id)
-//				.orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
-//	    return prListaAssembler.toCollection(usuario.getRecursos();
-//	}
+//	 Metodo para recuperara todos los recursos que tiene un usuario.
+	@GetMapping("{id}/usuario")
+	public UsuarioModel usuarioRecurso(@PathVariable Long id) {
+		Recurso recurso = repositorio.findById(id)
+				.orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
+		UsuarioImpl usuario = recurso.getUsuario();
+	    return usuarioAssembler.toModel(usuario);
+	}
 
 	@PostMapping	
 	public RecursoModel add(@RequestBody RecursoModel model) {
@@ -56,13 +64,22 @@ public class RecursoController {
 
 	@PutMapping("{id}")
 	public RecursoModel edit(@PathVariable Long id, @RequestBody RecursoModel model) {
-		Recurso recurso = repositorio.findById(id).map(rec -> {
-			rec.setFichero(model.getFichero());
-			rec.setTamanio(model.getTamanio());
-		    	return repositorio.save(rec);
-		}).orElseThrow(() -> new RegisterNotFoundException(id, "recurso"));
+		Recurso recurso = repositorio.findById(id).orElseThrow(() -> new RegisterNotFoundException(id, "recurso"));
 		log.info("Actualizado " + recurso);
-		return assembler.toModel(recurso);
+		recurso.setFichero(model.getFichero());
+		recurso.setTamanio(model.getTamanio());
+		if(model.getTipo() == Tipo.video) {
+			Video video = (Video) recurso;
+			video.setDuracion(model.getDuracion());
+			video.setResolucion(model.getResolucion());
+		}else if(model.getTipo() == Tipo.imagen ){
+			Imagen imagen = (Imagen) recurso;
+			imagen.setResolucion(model.getResolucion());
+		}else if(model.getTipo() == Tipo.audio) {
+			Audio audio = (Audio) recurso;
+			audio.setDuracion(model.getDuracion());
+		}
+		return assembler.toModel(repositorio.save(recurso));
 	}
 
 	@DeleteMapping("{id}")

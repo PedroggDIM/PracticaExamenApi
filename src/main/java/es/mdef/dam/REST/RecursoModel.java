@@ -15,7 +15,6 @@ public class RecursoModel extends RepresentationModel<RecursoModel>{
 	private int duracion;	
 	private Resolucion resolucion;
     private Tipo tipo;
-    private UsuarioImpl usuario;
     
     //getter setter
 	public String getFichero() {
@@ -47,12 +46,6 @@ public class RecursoModel extends RepresentationModel<RecursoModel>{
 	}
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
-	}
-	public UsuarioImpl getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(UsuarioImpl usuario) {
-		this.usuario = usuario;
-	}   
+	}  
 	
 }

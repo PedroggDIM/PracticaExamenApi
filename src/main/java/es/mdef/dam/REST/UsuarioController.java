@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,14 +23,16 @@ public class UsuarioController {
     private final UsuarioPostAsembler postassembler;
     //Relación 1 a N con recursos (uno a muchos)
 	private final RecursoAssembler recursoAssembler;
+	private final RecursoListaAssembler recursoListaAssembler;
 	private final Logger log;
 
 	UsuarioController(UsuarioRepositorio repositorio, UsuarioAssembler assembler,
-			RecursoAssembler recursoAssembler, UsuarioPostAsembler postassembler) {
+			RecursoAssembler recursoAssembler, UsuarioPostAsembler postassembler, RecursoListaAssembler recursoListaAssembler) {
 		this.repositorio = repositorio;
 		this.assembler = assembler;
 	    this.postassembler = postassembler;
 		this.recursoAssembler = recursoAssembler;
+		this.recursoListaAssembler = recursoListaAssembler;
 		log = DamApplication.log;
 	}
 
@@ -45,13 +48,13 @@ public class UsuarioController {
 		return assembler.toCollectionModel(repositorio.findAll());
 	}
 
-//    Metodo para recuperara todos los recursos que tiene un usuario.
-//	@GetMapping("{id}/recursos")
-//	public CollectionModel<UsuarioModel> recursosDeUsuario(@PathVariable Long id) {
-//		UsuarioImpl usuario = repositorio.findById(id)
-//				.orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
-//	    return prListaAssembler.toCollection(usuario.getRecursos();
-//	}
+//  Metodo para recuperara todos los recursos que tiene un usuario.
+	@GetMapping("{id}/recursos")
+	public CollectionModel<RecursoListaModel> recursosDeUsuario(@PathVariable Long id) {
+		UsuarioImpl usuario = repositorio.findById(id)
+				.orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
+	    return recursoListaAssembler.toCollection(usuario.getRecursos());
+	}
 
 	@PostMapping
 	public UsuarioModel add(@RequestBody UsuarioModel model) {
@@ -60,17 +63,17 @@ public class UsuarioController {
 		return assembler.toModel(usuario);
 	}
 
-//	@PutMapping("{id}")
-//	public UsuarioModel edit(@PathVariable Long id, @RequestBody UsuarioPostModel model) {
-//		UsuarioImpl usuario = repositorio.findById(id).map(rec -> {
-//			rec.setNombreUsuario(model.getNombreUsuario());
-//		    rec.setContrasenia(model.getContrasenia());
-//			rec.setRole(model.getRol());
-//		    	return repositorio.save(rec);
-//		}).orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
-//		log.info("Actualizado " + usuario);
-//		return assembler.toModel(usuario);
-//	}
+	@PutMapping("{id}")
+	public UsuarioModel edit(@PathVariable Long id, @RequestBody UsuarioPostModel model) {
+		UsuarioImpl usuario = repositorio.findById(id).map(rec -> {
+			rec.setNombreUsuario(model.getNombreUsuario());
+		    rec.setContrasenia(model.getContrasenia());
+			rec.setRole(model.getRol());
+		    	return repositorio.save(rec);
+		}).orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
+		log.info("Actualizado " + usuario);
+		return assembler.toModel(usuario);
+	}
 
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {

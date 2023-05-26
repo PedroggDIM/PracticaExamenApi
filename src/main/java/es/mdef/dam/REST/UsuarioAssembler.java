@@ -2,6 +2,8 @@ package es.mdef.dam.REST;
 
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import es.mdef.dam.entidades.UsuarioImpl;
 
 @Component
@@ -14,8 +16,8 @@ public class UsuarioAssembler implements RepresentationModelAssembler<UsuarioImp
 		model.setRol(entity.getRole());		
 		
 		model.add(
-			//	linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel()
-			//	linkTo(methodOn(RecursoController.class).one(entity.getId())).withRel("usuario")
+				linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel()
+				,linkTo(methodOn(UsuarioController.class).recursosDeUsuario(entity.getId())).withRel("recursos")
 				 );
 		
 		return model;
