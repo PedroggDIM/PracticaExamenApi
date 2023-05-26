@@ -29,7 +29,7 @@ public class RecursoAssembler implements RepresentationModelAssembler<Recurso, R
 			model.setTipo(Tipo.video);
 		}else if(entity.getTipo() == Tipo.imagen ){
 			Imagen imagen = (Imagen) entity;
-			model.setResolucion(imagen.getResolucion());
+			model.setResolucion(imagen.getResolucion());			
 			model.setTipo(Tipo.imagen);
 		}else if(entity.getTipo() == Tipo.audio) {
 			Audio audio = (Audio) entity;
