@@ -22,7 +22,7 @@ public class RecursoAssembler implements RepresentationModelAssembler<Recurso, R
 		model.setTamanio(entity.getTamanio());
 		model.setUsuario(entity.getUsuario());
 		
-		if(entity.getTipo() == Tipo.video) {
+		if(entity instanceof Video) {
 			Video video = (Video) entity;
 			model.setDuracion(video.getDuracion());
 			model.setResolucion(video.getResolucion());
@@ -37,8 +37,8 @@ public class RecursoAssembler implements RepresentationModelAssembler<Recurso, R
 			model.setTipo(Tipo.audio);
 		}			
 		model.add(
-				linkTo(methodOn(RecursoController.class).one(entity.getId())).withSelfRel()
-			//	linkTo(methodOn(UsuarioController.class).one(entity.getId())).withRel("usuario")
+				linkTo(methodOn(RecursoController.class).one(entity.getId())).withSelfRel(),
+				linkTo(methodOn(UsuarioController.class).one(entity.getId())).withRel("usuario")
 						);
 		return model;
 	}
