@@ -16,7 +16,7 @@ public class UsuarioPostAsembler implements RepresentationModelAssembler<Usuario
 		
 		
 		model.add(
-			//	linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel(),
+			//	linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel()
 			//	linkTo(methodOn(RecursoController.class).one(entity.getId())).withRel("usuario")
 				 );
 		

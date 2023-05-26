@@ -47,8 +47,7 @@ public class RecursoController {
 //	    return prListaAssembler.toCollection(usuario.getRecursos();
 //	}
 
-	@PostMapping
-	// public RecursoModel add(@Valid @RequestBody RecursoModel model) {
+	@PostMapping	
 	public RecursoModel add(@RequestBody RecursoModel model) {
 		Recurso recurso = repositorio.save(assembler.toEntity(model));
 		log.info("Añadido " + recurso);

@@ -39,7 +39,7 @@ public class RecursoAssembler implements RepresentationModelAssembler<Recurso, R
 		model.add(
 				linkTo(methodOn(RecursoController.class).one(entity.getId())).withSelfRel()
 			//	linkTo(methodOn(UsuarioController.class).one(entity.getId())).withRel("usuario")
-				 );
+						);
 		return model;
 	}
 	

@@ -11,11 +11,10 @@ public class UsuarioAssembler implements RepresentationModelAssembler<UsuarioImp
 	public UsuarioModel toModel(UsuarioImpl entity) {
 		UsuarioModel model = new UsuarioModel();
 		model.setNombreUsuario(entity.getNombreUsuario());		
-		model.setRol(entity.getRole());
-		
+		model.setRol(entity.getRole());		
 		
 		model.add(
-			//	linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel(),
+			//	linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel()
 			//	linkTo(methodOn(RecursoController.class).one(entity.getId())).withRel("usuario")
 				 );
 		
