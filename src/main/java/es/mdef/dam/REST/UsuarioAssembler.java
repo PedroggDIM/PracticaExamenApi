@@ -8,7 +8,6 @@ import es.mdef.dam.entidades.UsuarioImpl;
 
 @Component
 public class UsuarioAssembler implements RepresentationModelAssembler<UsuarioImpl, UsuarioModel>{
-
 	@Override
 	public UsuarioModel toModel(UsuarioImpl entity) {
 		UsuarioModel model = new UsuarioModel();
@@ -18,8 +17,7 @@ public class UsuarioAssembler implements RepresentationModelAssembler<UsuarioImp
 		model.add(
 				linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel()
 				,linkTo(methodOn(UsuarioController.class).recursosDeUsuario(entity.getId())).withRel("recursos")
-				 );
-		
+				 );		
 		return model;
 	}
 	public UsuarioImpl toEntity(UsuarioModel model) {

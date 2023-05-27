@@ -45,8 +45,8 @@ public class RecursoController {
 	public CollectionModel<RecursoModel> all() {
 		return assembler.toCollectionModel(repositorio.findAll());
 	}
-
-//	 Metodo para recuperara todos los recursos que tiene un usuario.
+// cada recurso tiene 1 usuario y lo recupero
+//	 Un recurso tiene un único usuario  /usuario
 	@GetMapping("{id}/usuario")
 	public UsuarioModel usuarioRecurso(@PathVariable Long id) {
 		Recurso recurso = repositorio.findById(id)
@@ -61,7 +61,7 @@ public class RecursoController {
 		log.info("Añadido " + recurso);
 		return assembler.toModel(recurso);
 	}
-
+//al actualizar el recurso puede ser de distinto tipo
 	@PutMapping("{id}")
 	public RecursoModel edit(@PathVariable Long id, @RequestBody RecursoModel model) {
 		Recurso recurso = repositorio.findById(id).orElseThrow(() -> new RegisterNotFoundException(id, "recurso"));

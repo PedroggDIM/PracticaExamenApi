@@ -5,9 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
 import es.mdef.dam.entidades.Recurso;
-
+@Component
 public class RecursoListaAssembler implements RepresentationModelAssembler<Recurso, RecursoListaModel>{
 
 	@Override

@@ -37,6 +37,8 @@ public class RecursoAssembler implements RepresentationModelAssembler<Recurso, R
 		}			
 		model.add(
 				linkTo(methodOn(RecursoController.class).one(entity.getId())).withSelfRel(),
+				//Recurso tiene el mucho en la relación
+				// entity es de Recurso // como coje un usuario entity.getUsuario()
 				linkTo(methodOn(UsuarioController.class).one(entity.getUsuario().getId())).withRel("usuario")
 						);
 		return model;
