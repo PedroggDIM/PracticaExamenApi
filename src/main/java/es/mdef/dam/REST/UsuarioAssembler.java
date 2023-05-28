@@ -25,7 +25,6 @@ public class UsuarioAssembler implements RepresentationModelAssembler<UsuarioImp
 				
 		usuario.setNombreUsuario(model.getNombreUsuario());
 		usuario.setRole(model.getRol());
-		
 		return usuario;
 	}
 	
