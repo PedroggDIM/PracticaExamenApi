@@ -3,32 +3,20 @@ package es.mdef.dam.REST;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import es.mdef.dam.entidades.Resolucion;
 import es.mdef.dam.entidades.UsuarioImpl;
 import es.mdef.dam.entidades.Recurso.Tipo;
 
 @Relation(itemRelation = "recurso")
-public class RecursoModel extends RepresentationModel<RecursoModel>{
+public class RecursoPostModel extends RepresentationModel<RecursoPostModel>{
 	 
 	private String fichero;
 	private int tamanio;
 	private int duracion;	
 	private Resolucion resolucion;
     private Tipo tipo;
-    
-<<<<<<< HEAD
     private UsuarioImpl usuario;
     
-    public UsuarioImpl getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(UsuarioImpl usuario) {
-		this.usuario = usuario;
-	}
-=======
->>>>>>> 429bec97990d1d2bdafb43ae023eed2795d470f8
 	//getter setter
 	public String getFichero() {
 		return fichero;
@@ -59,6 +47,12 @@ public class RecursoModel extends RepresentationModel<RecursoModel>{
 	}
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
+	}  
+	public UsuarioImpl getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(UsuarioImpl usuario) {
+		this.usuario = usuario;
 	}
 	
 }

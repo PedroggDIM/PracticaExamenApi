@@ -24,12 +24,14 @@ import es.mdef.dam.repositorios.RecursoRepositorio;
 public class RecursoController {
 	private final RecursoRepositorio repositorio;
 	private final RecursoAssembler assembler;
+	private final RecursoPostAssembler postAssembler;
 	private final UsuarioAssembler usuarioAssembler;
 	private final Logger log;
 
-	RecursoController(RecursoRepositorio repositorio, RecursoAssembler assembler, UsuarioAssembler usuarioAssembler) {
+	RecursoController(RecursoRepositorio repositorio, RecursoAssembler assembler, RecursoPostAssembler postAssembler, UsuarioAssembler usuarioAssembler) {
 		this.repositorio = repositorio;
 		this.assembler = assembler;
+		this.postAssembler = postAssembler;
 		this.usuarioAssembler = usuarioAssembler;
 		log = DamApplication.log;
 	}
@@ -56,8 +58,8 @@ public class RecursoController {
 	}
 
 	@PostMapping	
-	public RecursoModel add(@RequestBody RecursoModel model) {
-		Recurso recurso = repositorio.save(assembler.toEntity(model));
+	public RecursoModel add(@RequestBody RecursoPostModel model) {
+		Recurso recurso = repositorio.save(postAssembler.toEntity(model));
 		log.info("Añadido " + recurso);
 		return assembler.toModel(recurso);
 	}

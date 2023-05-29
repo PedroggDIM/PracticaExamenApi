@@ -20,17 +20,17 @@ import es.mdef.dam.repositorios.UsuarioRepositorio;
 public class UsuarioController {
 	private final UsuarioRepositorio repositorio;
 	private final UsuarioAssembler assembler;
-    private final UsuarioPostAsembler postassembler;
+    private final UsuarioPostAsembler postAssembler;
     //Relación 1 a N con recursos (uno a muchos)
 	private final RecursoAssembler recursoAssembler;
 	private final RecursoListaAssembler recursoListaAssembler;
 	private final Logger log;
 
 	UsuarioController(UsuarioRepositorio repositorio, UsuarioAssembler assembler,
-			RecursoAssembler recursoAssembler, UsuarioPostAsembler postassembler, RecursoListaAssembler recursoListaAssembler) {
+			RecursoAssembler recursoAssembler, UsuarioPostAsembler postAssembler, RecursoListaAssembler recursoListaAssembler) {
 		this.repositorio = repositorio;
 		this.assembler = assembler;
-	    this.postassembler = postassembler;
+	    this.postAssembler = postAssembler;
 		this.recursoAssembler = recursoAssembler;
 		this.recursoListaAssembler = recursoListaAssembler;
 		log = DamApplication.log;
@@ -57,8 +57,8 @@ public class UsuarioController {
 	}
 
 	@PostMapping
-	public UsuarioModel add(@RequestBody UsuarioModel model) {
-		UsuarioImpl usuario = repositorio.save(assembler.toEntity(model));
+	public UsuarioModel add(@RequestBody UsuarioPostModel model) {
+		UsuarioImpl usuario = repositorio.save(postAssembler.toEntity(model));
 		log.info("Añadido " + usuario);
 		return assembler.toModel(usuario);
 	}
