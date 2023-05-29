@@ -17,10 +17,10 @@ public class Imagen extends Recurso{
 	}
 	@Override
 	public Tipo getTipo() {		
-		return Tipo.video;
+		return Tipo.imagen;
 	}	
 	@Override
 	public Tipo setTipo() {		
-		return Tipo.video;
+		return Tipo.imagen;
 	}
 }
